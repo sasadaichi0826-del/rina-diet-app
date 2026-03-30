@@ -9,21 +9,41 @@ SCOPES = [
 ]
 
 def get_sheet():
-    """環境変数の認証情報を使用してワークシートを取得する"""
+    """スプレッドシートへの接続を行い、ワークシートオブジェクトを返す"""
+    import json
+    
+    # 1. スプレッドシートキーの取得 (Secrets 優先)
     try:
-        cred_file = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-        sheet_key = os.getenv("SPREADSHEET_KEY")
+        SPREADSHEET_KEY = st.secrets["SPREADSHEET_KEY"]
+    except Exception:
+        SPREADSHEET_KEY = os.getenv("SPREADSHEET_KEY")
         
-        if not cred_file or not sheet_key:
-            raise ValueError(".envの GOOGLE_APPLICATION_CREDENTIALS または SPREADSHEET_KEY が未設定です。")
-            
-        credentials = Credentials.from_service_account_file(cred_file, scopes=SCOPES)
-        client = gspread.authorize(credentials)
-        spreadsheet = client.open_by_key(sheet_key)
-        return spreadsheet.sheet1
-    except Exception as e:
-        print(f"【Auth/Connection Error】: {e}")
-        raise e
+    if not SPREADSHEET_KEY or SPREADSHEET_KEY == "your_spreadsheet_key_here":
+        raise ValueError("SPREADSHEET_KEY が設定されていません。")
+
+    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+    
+    # 2. 認証情報の取得
+    try:
+        # Streamlit Secrets に JSON 文字列が登録されている場合
+        if "GOOGLE_APPLICATION_CREDENTIALS_JSON" in st.secrets:
+            creds_info = json.loads(st.secrets["GOOGLE_APPLICATION_CREDENTIALS_JSON"])
+            credentials = Credentials.from_service_account_info(creds_info, scopes=scope)
+        # あるいはTOML辞書として登録されている場合
+        elif "gcp_service_account" in st.secrets:
+            creds_info = dict(st.secrets["gcp_service_account"])
+            credentials = Credentials.from_service_account_info(creds_info, scopes=scope)
+        else:
+            raise KeyError()
+    except Exception:
+        # ローカル環境のファイルからの読み込み
+        creds_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "rina-diet-app.json")
+        if not os.path.exists(creds_path):
+            raise FileNotFoundError(f"サービスアカウントキーが見つかりません: {creds_path}")
+        credentials = Credentials.from_service_account_file(creds_path, scopes=scope)
+
+    gc = gspread.authorize(credentials)
+    return gc.open_by_key(SPREADSHEET_KEY).sheet1
 
 def add_record(date_str, time_str, food_str, calories, ai_message, weight):
     """

@@ -1,10 +1,15 @@
 import os
 import json
 import datetime
+import streamlit as st
 import google.generativeai as genai
 
 def init_gemini():
-    api_key = os.getenv("GEMINI_API_KEY")
+    try:
+        api_key = st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        api_key = os.getenv("GEMINI_API_KEY")
+        
     if not api_key or api_key == "your_gemini_api_key_here":
         raise ValueError("GEMINI_API_KEY が設定されていません。")
     genai.configure(api_key=api_key)
