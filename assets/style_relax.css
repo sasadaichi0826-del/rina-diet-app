@@ -1,0 +1,35 @@
+/* style_relax.css (リラックステイスト：茶色と黄色) */
+/* 絶対にハトなどの要素を入れない */
+
+.stApp {
+    background-color: #fdf6e3;
+    color: #4a3b32;
+}
+
+/* ヘッダーやテキストの色変更 */
+h1, h2, h3, p, span {
+    color: #5c4033 !important;
+}
+
+/* チャット入力バー */
+[data-testid="stChatInput"] {
+    background-color: #ffffff;
+    border-color: #d4a373 !important;
+}
+
+/* チャットコンテナ全体のスタイル調整 */
+[data-testid="stChatMessage"] {
+    background-color: #ffffff;
+    border: 1px solid #faedcd;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* ボタン */
+button[kind="primary"] {
+    background-color: #d4a373 !important;
+    color: white !important;
+    border-color: #ccd5ae !important;
+}

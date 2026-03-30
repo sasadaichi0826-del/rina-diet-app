@@ -1,0 +1,88 @@
+/* Tesla × Pikachu Modern 3D Theme */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+/* Animated Background */
+@keyframes electricBg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.stApp {
+    background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460) !important;
+    background-size: 400% 400% !important;
+    animation: electricBg 15s ease infinite !important;
+    color: #e0e0e0 !important;
+    font-family: 'Helvetica Neue', 'Orbitron', Arial, sans-serif !important;
+}
+
+/* Titles and Headers */
+h1, h2, h3, h4, .stMarkdown p strong {
+    color: #FFD700 !important;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Global 3D Glassmorphism for containers and expanders */
+[data-testid="stExpander"], div[data-testid="stVerticalBlock"] > div > div[data-testid="stVerticalBlock"] {
+    background: rgba(20, 30, 48, 0.6) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 215, 0, 0.3) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+}
+
+/* Base button styling */
+.stButton > button, button.st-emotion-cache-1vt4ygl {
+    border-radius: 25px !important;
+    font-weight: 800 !important;
+    transform-style: preserve-3d !important;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    border: 2px solid #fff !important;
+}
+
+/* Electric Keyframes */
+@keyframes electricPulse {
+    0% { box-shadow: 0 0 5px #FFD700, 0 0 15px #FFD700, inset 0 2px 2px rgba(255,255,255,0.6); }
+    50% { box-shadow: 0 0 10px #FFD700, 0 0 25px #FFA500, inset 0 2px 2px rgba(255,255,255,0.6); }
+    100% { box-shadow: 0 0 5px #FFD700, 0 0 15px #FFD700, inset 0 2px 2px rgba(255,255,255,0.6); }
+}
+
+@keyframes fastPulse {
+    0% { box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, inset 0 2px 2px rgba(255,255,255,0.6); }
+    50% { box-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500, inset 0 2px 2px rgba(255,255,255,0.6); }
+    100% { box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, inset 0 2px 2px rgba(255,255,255,0.6); }
+}
+
+/* Secondary Button (Pikachu Yellow) */
+button[kind="secondary"] {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
+    color: #111 !important;
+    animation: electricPulse 2s infinite !important;
+}
+button[kind="secondary"]:hover {
+    transform: translateY(-4px) scale(1.05) !important;
+    animation: fastPulse 0.5s infinite !important;
+}
+
+/* Primary Button (Pikachu Red Cheek) */
+@keyframes redPulse {
+    0% { box-shadow: 0 0 5px #FF3366, 0 0 15px #FF3366, inset 0 2px 2px rgba(255,255,255,0.6); }
+    50% { box-shadow: 0 0 10px #FF3366, 0 0 25px #FF0033, inset 0 2px 2px rgba(255,255,255,0.6); }
+    100% { box-shadow: 0 0 5px #FF3366, 0 0 15px #FF3366, inset 0 2px 2px rgba(255,255,255,0.6); }
+}
+button[kind="primary"] {
+    background: linear-gradient(135deg, #FF3366 0%, #FF0033 100%) !important;
+    color: #fff !important;
+    animation: redPulse 2s infinite !important;
+}
+button[kind="primary"]:hover {
+    transform: translateY(-4px) scale(1.05) !important;
+    box-shadow: 0 0 20px #FF3366, 0 0 40px #FF0033, inset 0 2px 2px rgba(255,255,255,0.6) !important;
+}
+
+/* Remove default dark grey background of st.chat_message if exist */
+.stChatMessage {
+    background: transparent !important;
+}

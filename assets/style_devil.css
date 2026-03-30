@@ -1,0 +1,34 @@
+/* style_devil.css (小悪魔テイスト：黒と紫) */
+/* 絶対にハトなどの要素を入れない */
+
+.stApp {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+/* ヘッダーやテキストの色変更 */
+h1, h2, h3, p, span {
+    color: #ecc9f7 !important;
+}
+
+/* チャット入力バー */
+[data-testid="stChatInput"] {
+    background-color: #2b2b2b;
+    border-color: #8a2be2 !important;
+}
+
+/* チャットコンテナ全体のスタイル調整 */
+[data-testid="stChatMessage"] {
+    background-color: #2a2533;
+    border: 1px solid #7c3aed;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* ボタン */
+button[kind="primary"] {
+    background-color: #8a2be2 !important;
+    color: white !important;
+    border-color: #7c3aed !important;
+}

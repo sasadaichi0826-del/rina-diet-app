@@ -1,0 +1,13 @@
+# Python environments
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Secrets and Configs
+.env
+rina-diet-app.json
+
+# Streamlit logs
+.streamlit/credentials.toml
